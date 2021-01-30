@@ -92,8 +92,9 @@ public class MySQL implements Connecter{
         stmt.setInt(1, where);
         stmt.executeUpdate();
     }
+        // NOT IMPLUMENTED below
             // <editor-fold defaultstate="collapsed" desc=" Get Value to Table's ">
-    public static List<Book_List> getBookList() throws SQLException {
+    /*public static List<CostumerList> getBookList() throws SQLException {
         try (
         Connection connection = Connected();
         Statement sqlStmt = connection.createStatement();
@@ -130,7 +131,7 @@ public class MySQL implements Connecter{
             }
             return logiList ;
         }
-        }
+         }
     public static List<Register> getRegiList() throws SQLException {
         try (
         Connection connection = Connected();
@@ -221,6 +222,56 @@ public class MySQL implements Connecter{
             }
             return bookCostumerList;
         }
-        }
+        } */
     // </editor-fold>
 }
+/*
+CREATE DATABASE HottellBooking;
+
+
+CREATE TABLE Costumer(
+CostumerID INT PRIMARY KEY AUTO_INCREMENT,
+FistName char(255) NOT NULL,
+LastName char(255) NOT NULL
+) AUTO_INCREMENT = 1;
+
+CREATE TABLE CostumerInfo(
+ID INT,
+FOREIGN KEY (ID) REFERENCES Costumer(CostumerID) ON DELETE CASCADE,
+PhoneNumber BIGINT NOT NULL
+);
+
+CREATE TABLE Rooms(
+RoomID INT PRIMARY KEY AUTO_INCREMENT,
+RoomType char(255) NOT NULL,
+Price BIGINT UNIQUE,
+Rented BIT NOT NULL DEFAULT false
+) AUTO_INCREMENT = 1010;
+-- Drop TABLE rooms;
+
+
+
+CREATE TABLE BOOKING(
+ID INT,
+StartDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+EndDate DATETIME DEFAULT NULL,
+RoomID INT,
+FOREIGN KEY (ID) REFERENCES Costumer(CostumerID) ON DELETE SET NULL,
+Rented BIT NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE Food(
+ItemID INT PRIMARY KEY AUTO_INCREMENT,
+Item CHAR(255) NOT NULL,
+Price DOUBLE NOT NULL
+) AUTO_INCREMENT = 1;
+
+CREATE TABLE Orders(
+ID INT,
+FOREIGN KEY (ID) REFERENCES Rooms(RoomID) ON DELETE CASCADE,
+ItemID INT,
+FOREIGN KEY (ItemID) REFERENCES Food(ItemID) ON DELETE CASCADE,
+PRIMARY KEY(ID, ItemID),
+OrderDate DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+*/
