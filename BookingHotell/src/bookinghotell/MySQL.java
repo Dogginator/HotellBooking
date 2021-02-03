@@ -1,4 +1,5 @@
 
+
 package bookinghotell;
 
 import java.math.BigInteger;
@@ -30,68 +31,70 @@ public class MySQL implements Connecter{
         }
 
         Connection connection = Connecter.Help.con(url, user, pass);
-            sqlStatement = connection.createStatement();
+        sqlStatement = connection.createStatement();
         return connection;
     }
     
-        protected static void table_Insert(String table,  String colum, String columTwo,
-            String columThree, String columFour,BigInteger ISBN, String title, int year, double rate )throws SQLException{
+        protected static void mySQL(String order){
+        try {
         Connection connection = Connected();
         sqlStatement = connection.createStatement();
-        PreparedStatement stmt = sqlStatement.getConnection().prepareStatement("INSERT INTO " + table + "("+ colum + ", " + columTwo
-                + ")" + " VALUES ("+ ISBN + "," + title + ", ?, ?);");
-        stmt.setInt(1, year);
-        stmt.setDouble(2,rate);
-        stmt.executeUpdate();
-       
+        PreparedStatement stmt = sqlStatement.getConnection().prepareStatement(order); 
+        stmt.executeUpdate(); 
+            }catch(SQLException e){
+                System.out.println(e);
+            }  
     }
-    protected static void intUpdate(int set, int where, String table, String colum, String line)throws SQLException{
+    protected static void listAll(String order){
+        try {
         Connection connection = Connected();
         sqlStatement = connection.createStatement();
-        PreparedStatement stmt = sqlStatement.getConnection().prepareStatement("UPDATE " + table + " SET " + colum + " = ? WHERE "+ line +" = ?;");
-        stmt.setInt(1, set);
-        stmt.setInt(2, where);
-        stmt.executeUpdate();
+        PreparedStatement stmt = sqlStatement.getConnection().prepareStatement(order);
+        //stmt.setString(1, table);
+        ResultSet result = stmt.executeQuery();
+        columnCount = result.getMetaData().getColumnCount();
+        String[] columnNames = new String[columnCount];
+        for (i = 0; i < columnCount; i++) {
+            columnNames[i] = result.getMetaData().getColumnName(i + 1);
+        }
+
+        for (String columnName : columnNames) {
+            System.out.print(PadRight(columnName));
+        }
+
+        while (result.next()) {
+            System.out.println();
+            for (String columnName : columnNames) {
+                String value = result.getString(columnName);
+
+                if (value == null) {
+                    value = "null";
+                }
+
+                System.out.print(PadRight(value));
+            }
+        }
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+
     }
-    protected static void returnUpdate(int inventory_Id)throws SQLException{
-        Connection connection = Connected();
-        sqlStatement = connection.createStatement();
-        PreparedStatement stmt = sqlStatement.getConnection().prepareStatement("UPDATE Register SET rented = false WHERE bookId = ?;");
-        stmt.setInt(1, inventory_Id);
-        stmt.executeUpdate();    
-    }
-    protected static void bigIntUpdate(BigInteger ISBN, int where, String table, String colum, String line)throws SQLException{
-        Connection connection = Connected();
-        sqlStatement = connection.createStatement();
-        PreparedStatement stmt = sqlStatement.getConnection().prepareStatement("UPDATE " + table + " SET " + colum + " = " + 
-                ISBN + " WHERE "+ line +" = ?;");
-        //stmt.setInt(1, set);
-        stmt.setInt(1, where);
-        stmt.executeUpdate();
-    }
-    protected static void stringUpdate(String set, int where, String table, String colum, String line)throws SQLException{
-        Connection connection = Connected();
-        sqlStatement = connection.createStatement();
-        PreparedStatement stmt = sqlStatement.getConnection().prepareStatement("UPDATE " + table + " SET " + colum + " = " + 
-                set + " WHERE "+ line +" = ?;");
-        //stmt.setInt(1, set);
-        stmt.setInt(1, where);
-        stmt.executeUpdate();
-    }
-    protected static void dUpdate(double set, int where, String table, String colum, String line)throws SQLException{
-        Connection connection = Connected();
-        sqlStatement = connection.createStatement();
-        PreparedStatement stmt = sqlStatement.getConnection().prepareStatement("UPDATE " + table + " SET " + colum + " = ? WHERE "+ line +" = ?;");
-        stmt.setDouble(1, set);
-        stmt.setInt(2, where);
-        stmt.executeUpdate();
-    }
-        protected static void intDelete(String table, String colum, int where)throws SQLException{
-        Connection connection = Connected();
-        sqlStatement = connection.createStatement();
-        PreparedStatement stmt = sqlStatement.getConnection().prepareStatement("DELETE FROM " + table + " WHERE " + colum + " = ?;");
-        stmt.setInt(1, where);
-        stmt.executeUpdate();
+    
+        private static String PadRight(String string) {
+        int totalStringLength = 30;
+        int charsToPadd = totalStringLength - string.length();
+
+        // incase the string is the same length or longer than our maximum lenght
+        if (string.length() >= totalStringLength) {
+            return string;
+        }
+
+        StringBuilder stringBuilder = new StringBuilder(string);
+        for (i = 0; i < charsToPadd; i++) {
+            stringBuilder.append(" ");
+        }
+
+        return stringBuilder.toString();
     }
         // NOT IMPLUMENTED below
             // <editor-fold defaultstate="collapsed" desc=" Get Value to Table's ">
