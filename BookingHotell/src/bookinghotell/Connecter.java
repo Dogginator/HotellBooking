@@ -11,7 +11,7 @@ import java.util.List;
 public interface Connecter {
      
     
-    List<PassWord> passWord = new ArrayList<>();
+
         public static class Help {
 
         private static Statement sqlStatement = null;

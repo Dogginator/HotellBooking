@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javafx.scene.text.Text;
 import java.sql.ResultSet;
-import java.util.List;
+
 
 public class MySQL implements Connecter{
       
@@ -24,13 +24,9 @@ public class MySQL implements Connecter{
     
     
         public static Connection Connected() throws SQLException {
-        for (PassWord logIn : passWord) {
-            url = logIn.getAdress();
-            user = logIn.getPassName();
-            pass = logIn.getPassKey();
-        }
-
-        Connection connection = Connecter.Help.con(url, user, pass);
+                    // <editor-fold defaultstate="collapsed" desc=" PASSWORD ">
+        Connection connection = Connecter.Help.con("jdbc:mysql://localhost:3306/hottellbooking", "root", "urePassWord");
+        // </editor-fold> 
         sqlStatement = connection.createStatement();
         return connection;
     }
