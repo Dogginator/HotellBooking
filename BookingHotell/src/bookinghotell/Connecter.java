@@ -19,7 +19,7 @@ public interface Connecter {
         
         protected static Connection con(String url, String user, String password) throws SQLException {
 
-            Connection connection = DriverManager.getConnection(url, user, password);
+            Connection connection = DriverManager.getConnection(url, "root", password);
             sqlStatement = connection.createStatement();
             return connection;
             
