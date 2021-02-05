@@ -1,49 +1,73 @@
-
 package bookinghotell;
 
 import java.util.Scanner;
 
 public class TryCatch {
-    private final Scanner sc = new Scanner(System.in);
-    private int inputInteger;
-    
-   public int tryingToInt(String input){
-      while(inputInteger < 0 && inputInteger > 4){  
-       try{
-        inputInteger = Integer.parseInt(input);
-       }catch(Exception e){
-           System.out.println(e);
-           System.out.println("Wrong input Try one more time:");
-           input = sc.nextLine();
-       }  
-      }
-      return inputInteger;
-   }
-   
-   public int roomCheck(String input){
-       while(inputInteger < 1009){
-       try {
-           inputInteger = Integer.parseInt(input);
-       }catch(Exception e){
-           System.out.println(e);
-           System.out.println("Wrong input Try one more time:");
-           input = sc.nextLine();
-       }
-       
+
+    Scanner sc = new Scanner(System.in);
+    int inputInteger = 0;
+    boolean loop = true;
+
+    public int tryingToInt(String input) {
+        do {
+            loop = true;
+            try {
+                inputInteger = Integer.parseInt(input);
+                if (inputInteger <= 0) {
+                    throw new Exception("Input mindre än 1!");
+                }
+
+            } catch (Exception e) {
+                System.out.println(e);
+                System.out.println("Error fel input, prova igen");
+                input = sc.nextLine();
+                loop = false;
+
             }
-       return inputInteger;
-   }
-   
-   public int tryingInput(String input){
-       while (inputInteger  < 0){
-           try{
-               inputInteger = Integer.parseInt(input);
-           }catch(Exception e){
-               System.out.println(e);
-               System.out.println("Wrong input Try one more time:");
-               input = sc.nextLine();
-           }
-       }
-       return inputInteger;
-   }
+
+        } while (loop == false);
+        return inputInteger;
+    }
+
+    public int roomCheck(String input) {
+        do {
+            loop = true;
+            try {
+                inputInteger = Integer.parseInt(input);
+                if (inputInteger <= 1009) {
+                    throw new Exception("Input mindre än 1010!");
+                }
+
+            } catch (Exception e) {
+                System.out.println(e);
+                System.out.println("Error fel input, prova igen");
+                input = sc.nextLine();
+                loop = false;
+
+            }
+
+        } while (loop == false);
+        return inputInteger;
+    }
+
+    public int tryingInput(String input) {
+        do {
+            loop = true;
+            try {
+                inputInteger = Integer.parseInt(input);
+                if (inputInteger <= 0) {
+                    throw new Exception("Input mindre än 1!");
+                }
+
+            } catch (Exception e) {
+                System.out.println(e);
+                System.out.println("Error fel input, prova igen");
+                input = sc.nextLine();
+                loop = false;
+
+            }
+
+        } while (loop == false);
+        return inputInteger;
+    }
 }

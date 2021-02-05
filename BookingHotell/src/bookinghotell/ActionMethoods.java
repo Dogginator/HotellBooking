@@ -1,17 +1,17 @@
-
 package bookinghotell;
 
 import java.util.Scanner;
 
 public class ActionMethoods {
-  private final Scanner sc = new Scanner(System.in);
-  private String input, inputInt, sendOrder, room;
-  private int integer, integerInput, road;
-  private final TryCatch trying = new TryCatch();
-  private final Menu goTo = new Menu();
-    
-  public void saveType(int x){
-        switch(x){
+
+    public static Scanner sc = new Scanner(System.in);
+    private String input, inputInt, sendOrder, room;
+    private int integer, integerInput, road;
+    public static TryCatch trying = new TryCatch();
+    public static Menu goTo = new Menu();
+
+    public void saveType(int x) {
+        switch (x) {
             case 1:
                 room = "Room A";
                 break;
@@ -22,7 +22,7 @@ public class ActionMethoods {
                 room = "Room C";
                 break;
         }
-        sendOrder = "SELECT * FROM Room WHERE RoomType = " + room +";";
+        sendOrder = "SELECT * FROM Room WHERE RoomType = " + room + ";";
         System.out.println("pick one of the following room numbers:");
         MySQL.listAll(sendOrder);
         input = sc.nextLine();
@@ -36,25 +36,26 @@ public class ActionMethoods {
         sendOrder = "INSERT INTO Costumer(Name, Phone) VALUE(" + input + ", " + inputInt + ");";
         MySQL.mySQL(sendOrder);
         // not Done Yet
-        
-       
+
     }
-    public void foodList(){ // DONE
-       System.out.println("Food Menu:/n");
-       sendOrder = "SELECT * FROM Food";
-       MySQL.listAll(sendOrder);
-       System.out.println("Room Nr: ");   
-       input = sc.nextLine();
-       integer = trying.roomCheck(input);
-       System.out.println("food Item Id: ");
-       input = sc.nextLine();
-       integerInput = trying.tryingInput(input);
-       sendOrder = "INSERT INTO Order(RoomID, ItemID) VALUE(" + integer + "," + integerInput + ");";
-       MySQL.mySQL(sendOrder);
-       goTo.customerMenu();
-    
+
+    public void foodList() { // DONE
+        System.out.println("Food Menu:/n");
+        sendOrder = "SELECT * FROM Food";
+        MySQL.listAll(sendOrder);
+        System.out.println("Room Nr: ");
+        input = sc.nextLine();
+        integer = trying.roomCheck(input);
+        System.out.println("food Item Id: ");
+        input = sc.nextLine();
+        integerInput = trying.tryingInput(input);
+        sendOrder = "INSERT INTO Order(RoomID, ItemID) VALUE(" + integer + "," + integerInput + ");";
+        MySQL.mySQL(sendOrder);
+        goTo.customerMenu();
+
     }
-    public void searching(){ // DONE
+
+    public void searching() { // DONE
         System.out.println("");
         System.out.println("Costumer search"
                 + "1. Full Costumer List/n"
@@ -62,7 +63,7 @@ public class ActionMethoods {
                 + "3. Search with CostumerID:/n");
         input = sc.nextLine();
         road = trying.tryingToInt(input);
-        switch(road){
+        switch (road) {
             case 1:
                 System.out.println("Displaying Full List:");
                 sendOrder = "SELECT * FROM Costumer";
@@ -92,62 +93,61 @@ public class ActionMethoods {
                 break;
         }
     }
-    
-    public void storage(){ // DONE
+
+    public void storage() { // DONE
         System.out.println("Name of new Costumer: ");
         input = sc.nextLine();
         System.out.println("Phone number: ");
         inputInt = sc.nextLine();
-        sendOrder = "INSERT INTO Costumer(name, Phone) VALUE("+ input+","+inputInt+");";
+        sendOrder = "INSERT INTO Costumer(name, Phone) VALUE(" + input + "," + inputInt + ");";
         MySQL.mySQL(sendOrder);
         System.out.println("Sucsses!");
         goTo.adminMenu();
-        
 
     }
-    
-    public void optionsCostumer(){ // DONE
+
+    public void optionsCostumer() { // DONE
         System.out.println("Options on Costumer"
                 + "1. Update a Costumer"
                 + "2. Remove a Costumer");
         input = sc.nextLine();
         road = trying.tryingToInt(input);
 
-        switch(road){
+        switch (road) {
             case 1:
                 System.out.println("What Would you Like to Update:/n"
                         + "1. name?/n"
                         + "2. Phone number?/n");
+                input = sc.nextLine();
+                road = trying.tryingToInt(input);
+                switch (road) {
+                    case 1:
+                        sendOrder = "SELECT * FROM Costumer";
+                        MySQL.listAll(sendOrder);
+                        System.out.println("New Name: ");
                         input = sc.nextLine();
-                        road = trying.tryingToInt(input);
-                        switch(road){
-                            case 1:                                 
-                                sendOrder = "SELECT * FROM Costumer";
-                                MySQL.listAll(sendOrder);
-                                System.out.println("New Name: ");
-                                input = sc.nextLine();
-                                System.out.println("CostumerID for Update: ");
-                                inputInt = sc.nextLine();
-                                integer = trying.tryingInput(inputInt);
-                                sendOrder = "UPDATE Costumer SET Name = " + input + " WHERE CostumerID = " + integer + ";";
-                                MySQL.mySQL(sendOrder);
-                                System.out.println("Sucsses!");
-                                goTo.adminMenu();
-                                break;
-                            default:
-                                sendOrder = "SELECT * FROM Costumer";
-                                MySQL.listAll(sendOrder);
-                                System.out.println("New Phone number: ");
-                                input = sc.nextLine();
-                                System.out.println("CostumerID for Update: ");
-                                inputInt = sc.nextLine();
-                                integer = trying.tryingInput(inputInt);
-                                sendOrder = "UPDATE Costumer SET Phone = " + input +" WHERE CostumerID = " + integer + ";";
-                                MySQL.mySQL(sendOrder);
-                                System.out.println("Sucsses!");
-                                goTo.adminMenu();
-                                break;
-                        }
+                        System.out.println("CostumerID for Update: ");
+                        inputInt = sc.nextLine();
+                        integer = trying.tryingInput(inputInt);
+                        sendOrder = "UPDATE Costumer SET Name = " + input + " WHERE CostumerID = " + integer + ";";
+                        MySQL.mySQL(sendOrder);
+                        System.out.println("Sucsses!");
+                        goTo.adminMenu();
+                        break;
+                    default:
+                        sendOrder = "SELECT * FROM Costumer";
+                        MySQL.listAll(sendOrder);
+                        System.out.println("New Phone number: ");
+                        input = sc.nextLine();
+                        System.out.println("CostumerID for Update: ");
+                        inputInt = sc.nextLine();
+                        integer = trying.tryingInput(inputInt);
+                        sendOrder = "UPDATE Costumer SET Phone = " + input + " WHERE CostumerID = " + integer + ";";
+                        MySQL.mySQL(sendOrder);
+                        System.out.println("Sucsses!");
+                        goTo.adminMenu();
+                        break;
+                }
                 break;
             default:
                 sendOrder = "SELECT * FROM Costumer";
@@ -161,16 +161,15 @@ public class ActionMethoods {
                 goTo.adminMenu();
                 break;
         }
-      // update and Delete Funktions  
+        // update and Delete Funktions  
     }
-    
-    public void roomOptions(){
-        
+
+    public void roomOptions() {
+
         // Upgrade or Booking Room
-       
     }
-    
-    public void checkOut(){
+
+    public void checkOut() {
         // Check out..
     }
 }

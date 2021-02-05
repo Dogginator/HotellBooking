@@ -3,19 +3,19 @@ package bookinghotell;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.OptionalInt;
 import java.util.Scanner;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Menu {
 
-    private static int road;
+    public int road;
     private static String input;
-    private final Scanner sc = new Scanner(System.in);
+    public static Scanner sc = new Scanner(System.in);
     private static boolean loop = true;
-    private final ActionMethoods goTo = new ActionMethoods();
-    private final TryCatch trying = new TryCatch();
-
-
+    public static ActionMethoods goTo = new ActionMethoods();
+    public static TryCatch trying = new TryCatch();
 
     public void menuHotell() {
 
@@ -125,37 +125,47 @@ public class Menu {
                 System.out.println("Error try again");
         }
     }
-        public void roomType() {
-        List<String> rooms = Arrays.asList("Room A", "Room B", "Room C");
-        IntStream.range(1, 4).mapToObj(i -> i + ". " + rooms)
-                .forEach(System.out::println);
+
+    public int roomType() {
+        sc.nextLine();
+        List<String> rooms = new ArrayList<>();
+        rooms.add("1. Room A");
+        rooms.add("2. Room B");
+        rooms.add("3. Room C");
+        rooms.forEach(System.out::println);
+        input = sc.nextLine();
+        road = trying.tryingToInt(input);
+        System.out.println("----");
+
+        return road;
     }
 
     public void roomDetails(int x) {
-        List<RoomType> types = new ArrayList<>();
+        x = x - 1;
+        /*List<RoomType> types = new ArrayList<>();
         types.add(new RoomType("Bed type: double", "Ac: yes", "free breakfast: yes", "Charge per day: 6000", "Continue: y/n"));
         types.add(new RoomType("Bed type: single", "Ac: yes", "free breakfast: yes", "Charge per day: 4000", "Continue: y/n"));
-        types.add(new RoomType("Bed type: single", "Ac: no", "free breakfast: no", "Charge per day: 2000", "Continue: y/n"));
-        System.out.println(types.get(x));
+        types.add(new RoomType("Bed type: single", "Ac: no", "free breakfast: no", "Charge per day: 2000", "Continue: y/n"));*/
+        System.out.println("value of x = " + x);
+        ArrayList<String> type = new ArrayList<String>();
+        type.add("BedType: double\n" + "Ac: yes\n" + "Free breakfast: yes/\n" + "Charge per day: 6000\n");
+        type.add("BedType: singel\n" + "Ac: yes\n" + "Free breakfast: yes/\n" + "Charge per day: 4000\n");
+        type.add("BedType: singel\n" + "Ac: no\n" + "Free breakfast: no/\n" + "Charge per day: 2000\n");
+        System.out.println(type.get(x));
+        System.out.println("Continue: Y/N");
         input = sc.nextLine();
-        System.out.println("");
+        System.out.println("----");
         yesNoo(input);
     }
 
     public void pickRoom(int x) {
         switch (x) {
             case 1:
-                roomType();
-                input = sc.nextLine();
-                road = trying.tryingToInt(input);
-                System.out.println("");
+                road = roomType();
                 roomDetails(road);
                 break;
             case 2:
-                roomType();
-                input = sc.nextLine();
-                road = trying.tryingToInt(input);
-                System.out.println("");
+                road = roomType();
                 room(road);
                 break;
             default:

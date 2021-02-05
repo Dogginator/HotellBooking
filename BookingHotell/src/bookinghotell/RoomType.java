@@ -1,25 +1,21 @@
-
 package bookinghotell;
 
-
-
 public class RoomType {
-   private String roomType;
-   private String price;
-   private String ac;
-   private String breakfast;
-   private String bedType;
-   private String conntinue;
-   
-   
-   public RoomType(String bedType, String breakfast, String ac, String price, String conntinue){
-       this.bedType = bedType;
-       this.breakfast = breakfast;
-       this.ac = ac;
-       this.price = price;
-       this.conntinue = conntinue;
-   }
 
+    private String roomType;
+    private String price;
+    private String ac;
+    private String breakfast;
+    private String bedType;
+    private String conntinue;
+
+    public RoomType(String bedType, String breakfast, String ac, String price, String conntinue) {
+        this.bedType = bedType;
+        this.breakfast = breakfast;
+        this.ac = ac;
+        this.price = price;
+        this.conntinue = conntinue;
+    }
 
     public String getRoomType() {
         return roomType;
@@ -68,9 +64,10 @@ public class RoomType {
     public void setConntinue(String conntinue) {
         this.conntinue = conntinue;
     }
-   
-   
-   
-   
-   
+
+    @Override
+    public String toString() {
+        return "RoomType{ Room:" + roomType + ",/n " + price + ", " + ac + ",/n " + breakfast + ",/n " + bedType + ",/n " + conntinue + '}';
+    }
+
 }
